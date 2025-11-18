@@ -63,10 +63,10 @@ with col2:
         "C:\\Users\\paara\\Downloads\\Designer (1).png",
         width=500,
     )
-    st.markdown("<div style='text-align:center; margin-top: 0.5rem;'>"
-                "<strong style='font-size:1rem;'>Fast demo flow</strong><br>"
-                "Prepare: add an event → register a user → generate pass"
-                "</div>", unsafe_allow_html=True)
+    st.image(
+        "C:\\Users\\paara\\Downloads\\Designer (5).png",
+        width=300,
+    )
 
 st.markdown("---")
 st.info("⚙️             Quick Guide to get started:🧭⏬")
@@ -77,16 +77,24 @@ st.info("👉 As **User**:Register as new user and generate digital pass PDFs or
 st.markdown("---")
 
 # Quick-start checklist
-st.markdown("### Quick-start checklist for demos")
-st.markdown(dedent("""
-- Ensure the app is running: `python -m streamlit run app.py`  
-- Open the left menu and click **Login** to sign in as User/Admin 
-- As **User**:  
-  - Visit **Register User** to create a user  
-  - Visit **Generate Pass** to create and download a digital pass PDF 
-- Visit **Admin Dashboard** to add events, generate passes, and export CSVs  
-- Audit log file: `assets/audit/export_log.csv` (exports are logged automatically)
+col1, col2 = st.columns([2, 1])
+with col1:
+    st.markdown("### Quick-start checklist for demos")
+    st.markdown(dedent("""
+    - Ensure the app is running: `python -m streamlit run app.py`  
+    - Open the left menu and click **Login** to sign in as User/Admin 
+    - As **User**:  
+        - Visit **Register User** to create a user  
+        - Visit **Generate Pass** to create and download a digital pass PDF 
+    - Visit **Admin Dashboard** to add events, generate passes, and export CSVs  
+    - Explore the codebase to understand implementation details
 """))
+with col2:
+    st.image(
+        "C:\\Users\\paara\\Downloads\\Designer (3).png",
+        width=300,
+    )
+    
 
 st.markdown("---")
 
