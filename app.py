@@ -2,17 +2,20 @@
 import streamlit as st
 from textwrap import dedent
 
-st.set_page_config(page_title="Event Management System", page_icon="🎟️", layout="centered")
+st.set_page_config(page_title="Event Management System", page_icon="C:\\Users\\paara\\Downloads\\Designer (2).png", layout="centered")
 
 # Do NOT set st.session_state["role"] here — leave login.py free to create it when needed.
 # Keep a navigation placeholder only if you need it later (optional)
 st.session_state.setdefault("navigate_to", None)
 
 # Header
+
 st.markdown(
-    "<h1 style='text-align:center; margin-bottom: 0.25rem;'>🎫 Event Management System</h1>",
+    
+    "<h1 style='text-align:center; margin-bottom: 0.25rem;'>🌟Event Management System 📊</h1>",
     unsafe_allow_html=True,
 )
+
 st.markdown(
     "<h2 style='text-align:center; color: #6c757d; margin-top: 0;'> Event Management & Pass Distribution Made Digital And Simple </h2>",
     unsafe_allow_html=True,
@@ -40,30 +43,9 @@ with col1:
                         
         - Built using Defensive Database Queries to avoid runtime errors ✅
     """))
-    st.markdown("-----")
-
-    st.markdown(
-        "<div style='padding:0.5rem 0; font-size:0.95rem; color:#444;'>"
-        "Internship Project."
-        "</div>",
-        unsafe_allow_html=True,
-    )
-    
-    st.info("Built Using Streamlit & Python.")
-
-with col2:
-    st.image(
-        "https://img.icons8.com/fluency/96/000000/event.png",
-        width=500,
-    )
-    st.markdown("<div style='text-align:center; margin-top: 0.5rem;'>"
-                "<strong style='font-size:1rem;'>Fast demo flow</strong><br>"
-                "Prepare: add an event → register a user → generate pass"
-                "</div>", unsafe_allow_html=True)
 
 st.markdown("---")
-
-# Feature cards (three columns)
+ # Feature cards (three columns)
 c1, c2, c3 = st.columns(3)
 with c1:
     st.markdown("### 🗂️ Events")
@@ -74,6 +56,23 @@ with c2:
 with c3:
     st.markdown("### 🎟️ Passes")
     st.write("Generate, preview, and verify digital passes; PDFs stored under assets/passes.")
+
+   
+with col2:
+    st.image(
+        "C:\\Users\\paara\\Downloads\\Designer (1).png",
+        width=500,
+    )
+    st.markdown("<div style='text-align:center; margin-top: 0.5rem;'>"
+                "<strong style='font-size:1rem;'>Fast demo flow</strong><br>"
+                "Prepare: add an event → register a user → generate pass"
+                "</div>", unsafe_allow_html=True)
+
+st.markdown("---")
+st.info("⚙️             Quick Guide to get started:🧭⏬")
+st.info("👉 From the left menu, click **Login** to sign in as User/Admin")
+st.info("👉 As **Admin**:Visit **Admin Dashboard** to add events, generate passes, and export CSVs")
+st.info("👉 As **User**:Register as new user and generate digital pass PDFs or login with your credentials , to view you passes.")
 
 st.markdown("---")
 
