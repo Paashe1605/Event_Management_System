@@ -158,12 +158,17 @@ st.markdown("---")
 
 col1, col2 = st.columns([2, 1])
 with col1:
-    st.markdown(dedent("""
+    st.markdown(
+        f"""
+        <div style="font-size:17px;">
+        {dedent("""\
+                
         **Welcome!**  
 
         This project/prototype/proof-of-concept streamlines Event Management by replacing paper passes with secure
         digital passes and an easy-to-use admin interface to manage events.
-
+        
+        ---
         Key capabilities:
                         
         - Generate and manage event passes as professional PDFs 📄
@@ -171,8 +176,11 @@ with col1:
         - Register users and issue passes (Admin flows protected) 🔐
         - Export Users and Passes to CSV with Aadhaar masking and audit logging 🔒
         - Built using Defensive Database Queries to avoid runtime errors ✅
-    """))
-
+        """)}</div>
+        
+        """,
+        unsafe_allow_html=True
+    )
 with col2:
     st.image("D:\\event_management_system\\assets\\Designer (1).png", width=300)
     st.image("D:\\event_management_system\\assets\\Designer (5).png", width=300)
