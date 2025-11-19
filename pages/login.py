@@ -79,7 +79,7 @@ def login():
             st.error("Invalid credentials or role mismatch.")
 
 # 🔁 Registration redirect
-if st.button("New user? Register here"):
+if st.button("New user? Register here / Re-Register"):
     st.session_state["from_login"] = True
     st.switch_page("pages/register.py")
 

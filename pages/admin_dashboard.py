@@ -149,7 +149,7 @@ if page == "Events":
     with col_f2:
         status_filter = st.selectbox("Status", ["All", "open", "closed"], key="filter_status")
     with col_f3:
-        date_filter = st.date_input("On Date", key="filter_date")
+        date_filter = st.date_input("On date (optional)", key="filter_date")
 
     query = "SELECT id, name, date, time, venue, capacity, status, logo_path, final_entry_time, end_time, end_date FROM events WHERE 1=1"
     params = []

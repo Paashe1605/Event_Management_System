@@ -118,7 +118,7 @@ if submitted:
                     close_connection(conn)
 
                     st.success(f"🎉 Payment Successful & Registration successful for {event}!")
-                    st.info("✅ Your digital pass has been generated automatically. Please login again to view it.")
+                    st.info("✅ Your digital pass has been generated automatically.You can View it in your my passes section.")
                     st.session_state["from_login"] = False
 
         except Exception as e:
