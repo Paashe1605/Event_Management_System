@@ -10,7 +10,7 @@ st.markdown("""
 <style>
 /* 
    ================================================================
-   ANIMATE LIKE HELL (Preserving Original Colors/Fonts)
+   ANIMATIONS FOR STREAMLIT EVENT MANAGEMENT SYSTEM
    ================================================================
 */
 
@@ -145,7 +145,7 @@ button {
 </style>
 """, unsafe_allow_html=True)
 
-# ---- Original content (unchanged) ----
+# ---- Original content  ----
 st.markdown(
     "<h1 style='text-align:center; margin-bottom: 0.25rem;'>🌟Event Management System 📊</h1>",
     unsafe_allow_html=True,
