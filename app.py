@@ -5,43 +5,80 @@ from textwrap import dedent
 st.set_page_config(page_title="Event Management System", page_icon="C:\\Users\\paara\\Downloads\\Designer (2).png", layout="centered")
 st.session_state.setdefault("navigate_to", None)
 
-# ---- Text Animations (slide-in, slide-out, bounce, fade) ----
+# ---- Sequential Animations ----
 st.markdown("""
 <style>
-/* Fade-in for all text blocks */
-[data-testid="stMarkdownContainer"] p, h1, h2, h3, h4, h5, h6 {
-  animation: fadeInText 1s ease-out both;
+/* Headings appear first */
+h1 {
+  animation: slideInLeft 1s ease-out both;
+}
+h2 {
+  animation: slideInRight 1.2s ease-out both;
 }
 
-/* Slide-in for headings */
-h1, h2 {
-  animation: slideInText 1.2s ease-out both;
+/* Paragraphs fade in after headings */
+p {
+  animation: fadeInText 1.4s ease-out both;
 }
 
-/* Bounce for feature titles */
-h3 {
-  animation: bounceText 1.5s ease-in-out both;
+/* Lists stagger upward one by one */
+ul li {
+  animation: slideUpList 1s ease-out both;
+}
+ul li:nth-child(1) { animation-delay: 1.6s; }
+ul li:nth-child(2) { animation-delay: 1.8s; }
+ul li:nth-child(3) { animation-delay: 2s; }
+ul li:nth-child(4) { animation-delay: 2.2s; }
+ul li:nth-child(5) { animation-delay: 2.4s; }
+
+/* Images pulse in after text */
+img {
+  animation: pulseImage 2.6s ease-in-out both;
+  transition: transform 300ms ease, box-shadow 300ms ease, filter 300ms ease;
+  border-radius: 12px;
+}
+img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.15);
+  filter: brightness(1.05);
 }
 
-/* Slide-out subtle loop for captions */
+/* Alerts bounce in later */
+.stAlert {
+  animation: bounceIn 2.8s ease-out both;
+}
+
+/* Captions slide subtly at the end */
 .caption {
-  animation: slideOutText 4s ease-in-out infinite alternate;
+  animation: slideOutText 3s ease-in-out infinite alternate;
 }
 
 /* Keyframes */
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
 @keyframes fadeInText {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
-@keyframes slideInText {
-  from { opacity: 0; transform: translateX(-40px); }
-  to { opacity: 1; transform: translateX(0); }
+@keyframes slideUpList {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
-@keyframes bounceText {
-  0% { transform: translateY(0); }
-  30% { transform: translateY(-8px); }
-  60% { transform: translateY(4px); }
-  100% { transform: translateY(0); }
+@keyframes pulseImage {
+  0% { transform: scale(0.97); opacity: 0.8; }
+  50% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes bounceIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
 }
 @keyframes slideOutText {
   from { transform: translateX(0); opacity: 1; }
@@ -50,7 +87,7 @@ h3 {
 </style>
 """, unsafe_allow_html=True)
 
-# Header
+# ---- Original content (unchanged) ----
 st.markdown(
     "<h1 style='text-align:center; margin-bottom: 0.25rem;'>🌟Event Management System 📊</h1>",
     unsafe_allow_html=True,
@@ -61,7 +98,6 @@ st.markdown(
 )
 st.markdown("---")
 
-# Two-column hero
 col1, col2 = st.columns([2, 1])
 with col1:
     st.markdown(dedent("""
@@ -85,7 +121,6 @@ with col2:
 
 st.markdown("---")
 
-# Feature cards
 c1, c2, c3 = st.columns(3)
 with c1:
     st.markdown("### 🗂️ Events")
@@ -99,7 +134,6 @@ with c3:
 
 st.markdown("---")
 
-# Quick Guide
 st.info("⚙️ Quick Guide to get started:🧭⏬")
 st.info("👉 From the left menu, click **Login** to sign in as User/Admin")
 st.info("👉 As **Admin**: Visit **Admin Dashboard** to add events, generate passes, and export CSVs")
@@ -107,7 +141,6 @@ st.info("👉 As **User**: Register as new user and generate digital pass PDFs o
 
 st.markdown("---")
 
-# Quick-start checklist
 col1, col2 = st.columns([2, 1])
 with col1:
     st.markdown("### Quick-start checklist for demos")
@@ -125,7 +158,6 @@ with col2:
 
 st.markdown("---")
 
-# Footer
 if "role" in st.session_state and st.session_state.get("role"):
     display_email = st.session_state.get("email", "unknown")
     st.caption(f"Signed in as {st.session_state['role'].title()} — {display_email}")

@@ -5,6 +5,77 @@ from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib import colors
 
+# ---- Animations & UI polish ----
+st.markdown("""
+<style>
+/* Heading slide-in */
+h1 {
+  animation: slideInDown 1.2s ease-out both;
+}
+h3 {
+  animation: bounceText 1.5s ease-in-out both;
+}
+
+/* Inputs fade-in */
+input {
+  animation: fadeInField 1s ease-out both;
+}
+
+/* Alerts bounce-in */
+.stAlert {
+  animation: bounceIn 1s ease-out both;
+}
+
+/* Images pulse on load + hover */
+img {
+  animation: pulseImage 1.5s ease-in-out both;
+  transition: transform 250ms ease, box-shadow 250ms ease, filter 250ms ease;
+  border-radius: 10px;
+}
+img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  filter: brightness(1.05);
+}
+
+/* Download button hover pulse */
+button[kind="primary"] {
+  transition: transform 250ms ease, box-shadow 250ms ease;
+}
+button[kind="primary"]:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+}
+
+/* Keyframes */
+@keyframes slideInDown {
+  from { opacity: 0; transform: translateY(-40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeInField {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes bounceIn {
+  0% { transform: scale(0.9); opacity: 0; }
+  60% { transform: scale(1.05); opacity: 1; }
+  100% { transform: scale(1); }
+}
+@keyframes pulseImage {
+  0% { transform: scale(0.97); opacity: 0.8; }
+  50% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes bounceText {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  60% { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+</style>
+""", unsafe_allow_html=True)
+
+# ---- Original logic------
 if "role" not in st.session_state or st.session_state["role"] != "user":
     st.warning("Access denied. Please log in as a User.")
     st.stop()
