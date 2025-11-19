@@ -220,4 +220,4 @@ if "role" in st.session_state and st.session_state.get("role"):
     display_email = st.session_state.get("email", "unknown")
     st.caption(f"Signed in as {st.session_state['role'].title()} — {display_email}")
 else:
-    st.caption(" This Prototype/Project Built as a proof-of-concept by Paaras Shemrudkar @ Exigotech TSP.")
+    st.caption(" This Prototype/Project Built as a proof-of-concept by Paaras Shemrudkar @ INTERNSHIP..")
