@@ -3,26 +3,65 @@ import streamlit as st
 from textwrap import dedent
 
 st.set_page_config(page_title="Event Management System", page_icon="C:\\Users\\paara\\Downloads\\Designer (2).png", layout="centered")
-
-# Do NOT set st.session_state["role"] here — leave login.py free to create it when needed.
-# Keep a navigation placeholder only if you need it later (optional)
 st.session_state.setdefault("navigate_to", None)
 
-# Header
+# ---- Text Animations (slide-in, slide-out, bounce, fade) ----
+st.markdown("""
+<style>
+/* Fade-in for all text blocks */
+[data-testid="stMarkdownContainer"] p, h1, h2, h3, h4, h5, h6 {
+  animation: fadeInText 1s ease-out both;
+}
 
+/* Slide-in for headings */
+h1, h2 {
+  animation: slideInText 1.2s ease-out both;
+}
+
+/* Bounce for feature titles */
+h3 {
+  animation: bounceText 1.5s ease-in-out both;
+}
+
+/* Slide-out subtle loop for captions */
+.caption {
+  animation: slideOutText 4s ease-in-out infinite alternate;
+}
+
+/* Keyframes */
+@keyframes fadeInText {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideInText {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes bounceText {
+  0% { transform: translateY(0); }
+  30% { transform: translateY(-8px); }
+  60% { transform: translateY(4px); }
+  100% { transform: translateY(0); }
+}
+@keyframes slideOutText {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(20px); opacity: 0.8; }
+}
+</style>
+""", unsafe_allow_html=True)
+
+# Header
 st.markdown(
-    
     "<h1 style='text-align:center; margin-bottom: 0.25rem;'>🌟Event Management System 📊</h1>",
     unsafe_allow_html=True,
 )
-
 st.markdown(
     "<h2 style='text-align:center; color: #6c757d; margin-top: 0;'> Event Management & Pass Distribution Made Digital And Simple </h2>",
     unsafe_allow_html=True,
 )
 st.markdown("---")
 
-# Two-column hero with brief and highlights
+# Two-column hero
 col1, col2 = st.columns([2, 1])
 with col1:
     st.markdown(dedent("""
@@ -34,18 +73,19 @@ with col1:
         Key capabilities:
                         
         - Generate and manage event passes as professional PDFs 📄
-                        
         - Create, edit, open/close, and delete events quickly ⚙️
-                        
         - Register users and issue passes (Admin flows protected) 🔐
-                        
         - Export Users and Passes to CSV with Aadhaar masking and audit logging 🔒
-                        
         - Built using Defensive Database Queries to avoid runtime errors ✅
     """))
 
+with col2:
+    st.image("C:\\Users\\paara\\Downloads\\Designer (1).png", width=500)
+    st.image("C:\\Users\\paara\\Downloads\\Designer (5).png", width=300)
+
 st.markdown("---")
- # Feature cards (three columns)
+
+# Feature cards
 c1, c2, c3 = st.columns(3)
 with c1:
     st.markdown("### 🗂️ Events")
@@ -57,22 +97,13 @@ with c3:
     st.markdown("### 🎟️ Passes")
     st.write("Generate, preview, and verify digital passes; PDFs stored under assets/passes.")
 
-   
-with col2:
-    st.image(
-        "C:\\Users\\paara\\Downloads\\Designer (1).png",
-        width=500,
-    )
-    st.image(
-        "C:\\Users\\paara\\Downloads\\Designer (5).png",
-        width=300,
-    )
-
 st.markdown("---")
-st.info("⚙️             Quick Guide to get started:🧭⏬")
+
+# Quick Guide
+st.info("⚙️ Quick Guide to get started:🧭⏬")
 st.info("👉 From the left menu, click **Login** to sign in as User/Admin")
-st.info("👉 As **Admin**:Visit **Admin Dashboard** to add events, generate passes, and export CSVs")
-st.info("👉 As **User**:Register as new user and generate digital pass PDFs or login with your credentials , to view you passes.")
+st.info("👉 As **Admin**: Visit **Admin Dashboard** to add events, generate passes, and export CSVs")
+st.info("👉 As **User**: Register as new user and generate digital pass PDFs or login with your credentials to view passes.")
 
 st.markdown("---")
 
@@ -88,18 +119,13 @@ with col1:
         - Visit **Generate Pass** to create and download a digital pass PDF 
     - Visit **Admin Dashboard** to add events, generate passes, and export CSVs  
     - Explore the codebase to understand implementation details
-"""))
+    """))
 with col2:
-    st.image(
-        "C:\\Users\\paara\\Downloads\\Designer (3).png",
-        width=300,
-    )
-    
+    st.image("C:\\Users\\paara\\Downloads\\Designer (3).png", width=300)
 
 st.markdown("---")
 
-# Footer note
-# Safely show sign-in status only if the "role" key exists and is not None
+# Footer
 if "role" in st.session_state and st.session_state.get("role"):
     display_email = st.session_state.get("email", "unknown")
     st.caption(f"Signed in as {st.session_state['role'].title()} — {display_email}")
