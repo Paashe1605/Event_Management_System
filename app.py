@@ -2,7 +2,7 @@
 import streamlit as st
 from textwrap import dedent
 
-st.set_page_config(page_title="Event Management System", page_icon="C:\\Users\\paara\\Downloads\\Designer (2).png", layout="centered")
+st.set_page_config(page_title="Event Management System", page_icon="✨", layout="centered")
 st.session_state.setdefault("navigate_to", None)
 
 # ---- Sequential Animation using CSS Keyframes ----
