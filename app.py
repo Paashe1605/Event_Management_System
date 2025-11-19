@@ -174,8 +174,8 @@ with col1:
     """))
 
 with col2:
-    st.image("C:\\Users\\paara\\Downloads\\Designer (1).png", width=500)
-    st.image("C:\\Users\\paara\\Downloads\\Designer (5).png", width=300)
+    st.image("D:\\event_management_system\\assets\\Designer (1).png", width=300)
+    st.image("D:\\event_management_system\\assets\\Designer (5).png", width=300)
 
 st.markdown("---")
 
@@ -212,7 +212,7 @@ with col1:
     - Explore the codebase to understand implementation details
     """))
 with col2:
-    st.image("C:\\Users\\paara\\Downloads\\Designer (3).png", width=300)
+    st.image("D:\\event_management_system\\assets\\Designer (3).png", width=300)
 
 st.markdown("---")
 
