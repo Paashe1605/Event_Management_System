@@ -63,3 +63,14 @@ timestamp_utc,admin_user,export_type,row_count,file_name
 2025-11-21T09:38:02.522938,admin,users_masked_aadhaar,13,users_export_20251121_093802.csv
 2025-11-21T09:39:09.591452,admin,passes,13,passes_export_20251121_093909.csv
 2025-11-21T09:48:28.466307,admin,passes,13,passes_export_20251121_094828.csv
+2025-11-24T04:57:45.442587,admin,users_masked_aadhaar,13,users_export_20251124_045745.csv
+2025-11-24T04:58:29.315037,admin,passes,13,passes_export_20251124_045829.csv
+2025-11-24T05:40:19.193778,admin,users_masked_aadhaar,13,users_export_20251124_054019.csv
+2025-11-24T05:40:24.395042,admin,users_masked_aadhaar,13,users_export_20251124_054024.csv
+2025-11-24T05:41:27.950245,admin,passes,13,passes_export_20251124_054127.csv
+2025-11-24T05:41:30.370390,admin,passes,13,passes_export_20251124_054130.csv
+2025-11-24T08:11:26.168373,admin,users_masked_aadhaar,14,users_export_20251124_081126.csv
+2025-11-24T08:11:31.027318,admin,users_masked_aadhaar,14,users_export_20251124_081131.csv
+2025-11-24T08:11:59.098343,admin,passes,14,passes_export_20251124_081159.csv
+2025-11-24T08:12:33.756382,admin,users_masked_aadhaar,14,users_export_20251124_081233.csv
+2025-11-24T08:13:11.212381,admin,users_masked_aadhaar,14,users_export_20251124_081311.csv
