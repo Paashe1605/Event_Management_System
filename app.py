@@ -173,8 +173,8 @@ with col1:
                         
         - Generate and manage event passes as professional PDFs 📄
         - Create, edit, open/close, and delete events quickly ⚙️
-        - Register users and issue passes (Admin flows protected) 🔐
-        - Export Users and Passes to CSV with Aadhaar masking and audit logging 🔒
+        - Register users and issue  digital passes (Admin flows protected) 🔐
+        - Admins can export Users and Passes to CSV with Aadhaar masking and audit logging 🔒
         - Built using Defensive Database Queries to avoid runtime errors ✅
         """)}</div>
         
@@ -190,7 +190,7 @@ st.markdown("---")
 c1, c2, c3 = st.columns(3)
 with c1:
     st.markdown("### 🗂️ Events")
-    st.write("Create and manage events with capacity, timings, and logo support.")
+    st.write("Create and manage events with capacity, timings, and overall even6t setup.")
 with c2:
     st.markdown("### 👥 Users")
     st.write("Register attendees, mask Aadhaar in exports, and keep audit trails.")

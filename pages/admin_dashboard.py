@@ -343,6 +343,20 @@ elif page == "Users":
         users = cursor.fetchall()
         close_connection(conn)
 
+        # --- Helpers for masking ---
+        def _mask_pass_id(pass_id: str) -> str:
+            if not pass_id or len(pass_id) < 4:
+                return "XXXX"
+            return "XXXX" + pass_id[-4:]
+
+        def _mask_email(email: str) -> str:
+            if not email or "@" not in email:
+                return email
+            local, domain = email.split("@", 1)
+            if len(local) <= 3:
+                return "XXX@" + domain
+            return local[:-3] + "XXX@" + domain
+
         if users:
             st.subheader("Registered users")
             display_rows = []
@@ -355,7 +369,9 @@ elif page == "Users":
                     name, email, aadhar, event, pass_id = r
                     created_at = ""
 
-                display_rows.append([name, email, _mask_aadhaar(aadhar), event, pass_id])
+                # Mask Aadhaar + Pass ID + Email in visible table
+                display_rows.append([name, _mask_email(email), _mask_aadhaar(aadhar), event, _mask_pass_id(pass_id)])
+                # Keep full Email + Pass ID in CSV export
                 csv_rows.append([name, email, _mask_aadhaar(aadhar), event, pass_id, created_at])
 
             st.table(display_rows)
@@ -365,17 +381,26 @@ elif page == "Users":
             file_name = f"users_export_{now}.csv"
             csv_text = _to_csv_string(csv_rows, headers)
             csv_bytes = csv_text.encode("utf-8")
+
+            # --- Encrypt CSV with fixed key ---
+            from cryptography.fernet import Fernet
+            FIXED_KEY = b"YCS-rSEAMb9PpkGMHnzoZazFHNYfwjdWb0VR0YyaOls="  # <-- your fixed key
+            cipher = Fernet(FIXED_KEY)
+            encrypted_bytes = cipher.encrypt(csv_bytes)
+
             st.caption("Aadhaar is masked in the display and export. Full Aadhaar remains in the DB for admin-only ops.")
-            _download_button_bytes("⬇️ Export users (CSV, masked Aadhaar)", csv_bytes, file_name)
+            _download_button_bytes("⬇️ Export users (Encrypted CSV, masked Aadhaar)", encrypted_bytes, file_name + ".enc")
+
+            st.text("Admins can decrypt with the fixed key using Fernet.")
+
             _log_export(admin_user=st.session_state.get("username", "admin"),
-                        export_type="users_masked_aadhaar",
+                        export_type="users_masked_aadhaar_encrypted",
                         row_count=len(csv_rows),
-                        file_name=file_name)
+                        file_name=file_name + ".enc")
         else:
             st.warning("No users found for the current filter.")
     except Exception as e:
         st.error(f"Error loading users: {e}")
-
 # --- PASSES PAGE ---
 # --- PASSES PAGE (defensive generated_at on registrations) ---
 elif page == "Passes":
@@ -427,6 +452,12 @@ elif page == "Passes":
         passes = cursor.fetchall()
         close_connection(conn)
 
+        # --- Helper for Pass ID masking ---
+        def _mask_pass_id(pass_id: str) -> str:
+            if not pass_id or len(pass_id) < 4:
+                return "XXXX"
+            return "XXXX" + pass_id[-4:]
+
         if passes:
             st.subheader("Passes (preview first 10 rows)")
             preview = []
@@ -438,7 +469,8 @@ elif page == "Passes":
                 else:
                     name, event, pid = r
                     gen_at = ""
-                preview.append([name, event, pid, gen_at])
+                # Mask Pass ID in preview table
+                preview.append([name, event, _mask_pass_id(pid), gen_at])
 
             st.table(preview)
 
@@ -448,6 +480,7 @@ elif page == "Passes":
                 else:
                     name, event, pid = r
                     gen_at = ""
+                # Keep full Pass ID in CSV export
                 csv_rows.append([name, event, pid, gen_at])
 
             headers = ["Name", "Event", "Pass ID", "Pass Generated At"]
@@ -455,17 +488,24 @@ elif page == "Passes":
             file_name = f"passes_export_{now}.csv"
             csv_text = _to_csv_string(csv_rows, headers)
             csv_bytes = csv_text.encode("utf-8")
-            st.caption("Pass CSV contains pass IDs. Handle with care.")
-            _download_button_bytes("⬇️ Export passes (CSV)", csv_bytes, file_name)
+
+            # --- Encrypt CSV with fixed key ---
+            from cryptography.fernet import Fernet
+            FIXED_KEY = b"YCS-rSEAMb9PpkGMHnzoZazFHNYfwjdWb0VR0YyaOls="  # <-- your fixed key
+            cipher = Fernet(FIXED_KEY)
+            encrypted_bytes = cipher.encrypt(csv_bytes)
+
+            st.caption("Pass IDs are masked in the preview. Full IDs remain in the encrypted CSV export.")
+            _download_button_bytes("⬇️ Export passes (Encrypted CSV)", encrypted_bytes, file_name + ".enc")
+
             _log_export(admin_user=st.session_state.get("username", "admin"),
-                        export_type="passes",
+                        export_type="passes_encrypted",
                         row_count=len(csv_rows),
-                        file_name=file_name)
+                        file_name=file_name + ".enc")
         else:
             st.warning("No passes found for the current filter.")
     except Exception as e:
         st.error(f"Error loading passes: {e}")
-
 # --- GENERATE PASS PAGE ---
 elif page == "Generate Pass":
     st.header("🔑 Generate Pass (Admin Only)")

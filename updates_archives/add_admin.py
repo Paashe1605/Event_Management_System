@@ -9,15 +9,15 @@ cursor.execute("""
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 """, (
     "Admin User", 
-    30,                # age
-    "Other",           # gender
-    "Admin Address",   # address
-    "9999999999",      # phone
-    "admin@example.com", 
-    "admin123", 
-    "000000000000",    # dummy aadhar
-    "AdminEvent",      # dummy event
-    "admin"            # role
+    30,                 # age
+    "Other",            # gender
+    "Admin Address",    # address
+    "9999999999",       # phone
+    "admin@example.com",# email
+    "admin123",         # password
+    "000000000000",     # dummy aadhar
+    "AdminEvent",       # dummy event
+    "admin"             # role
 ))
 
 conn.commit()
