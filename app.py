@@ -181,10 +181,11 @@ with col1:
         """,
         unsafe_allow_html=True
     )
+
 with col2:
     st.image("D:\\event_management_system\\assets\\Designer (1).png", width=300)
     st.image("D:\\event_management_system\\assets\\Designer (5).png", width=300)
-
+   
 st.markdown("---")
 
 c1, c2, c3 = st.columns(3)
@@ -221,6 +222,8 @@ with col1:
     """))
 with col2:
     st.image("D:\\event_management_system\\assets\\Designer (3).png", width=300)
+    st.image("D:\\event_management_system\\assets\\Designer (6).png", width=1000)    
+
 
 st.markdown("---")
 

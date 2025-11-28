@@ -371,12 +371,13 @@ elif page == "Users":
 
                 # Mask Aadhaar + Pass ID + Email in visible table
                 display_rows.append([name, _mask_email(email), _mask_aadhaar(aadhar), event, _mask_pass_id(pass_id)])
-                # Keep full Email + Pass ID in CSV export
-                csv_rows.append([name, email, _mask_aadhaar(aadhar), event, pass_id, created_at])
+                # Keep full Email + Pass ID in CSV export (NO created_at anymore)
+                csv_rows.append([name, email, _mask_aadhaar(aadhar), event, pass_id])
 
             st.table(display_rows)
 
-            headers = ["Name", "Email", "Aadhaar_masked", "Event", "Pass ID", "Created At"]
+            # Removed "Created At" from headers
+            headers = ["Name", "Email", "Aadhaar_masked", "Event", "Pass ID"]
             now = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
             file_name = f"users_export_{now}.csv"
             csv_text = _to_csv_string(csv_rows, headers)
@@ -469,7 +470,7 @@ elif page == "Passes":
                 else:
                     name, event, pid = r
                     gen_at = ""
-                # Mask Pass ID in preview table
+                # Mask Pass ID in preview table (keep gen_at only for preview)
                 preview.append([name, event, _mask_pass_id(pid), gen_at])
 
             st.table(preview)
@@ -480,10 +481,11 @@ elif page == "Passes":
                 else:
                     name, event, pid = r
                     gen_at = ""
-                # Keep full Pass ID in CSV export
-                csv_rows.append([name, event, pid, gen_at])
+                # Keep full Pass ID in CSV export (NO generated_at anymore)
+                csv_rows.append([name, event, pid])
 
-            headers = ["Name", "Event", "Pass ID", "Pass Generated At"]
+            # Removed "Pass Generated At" from headers
+            headers = ["Name", "Event", "Pass ID"]
             now = datetime.utcnow().strftime("%Y%m%d_%H%M%S")
             file_name = f"passes_export_{now}.csv"
             csv_text = _to_csv_string(csv_rows, headers)

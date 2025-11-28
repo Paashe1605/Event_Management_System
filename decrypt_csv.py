@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 KEY = b"YCS-rSEAMb9PpkGMHnzoZazFHNYfwjdWb0VR0YyaOls="
 
 # 2) Set your encrypted file path (the .enc you downloaded)
-ENC_FILE = "C:\\Users\\paara\\Downloads\\passes_export_20251127_080004.csv.enc"
+ENC_FILE = "C:\\Users\\paara\\Downloads\\passes_export_20251128_052956.csv.enc"
 
 
 # 3) Output filename for the decrypted CSV

@@ -3,6 +3,7 @@ import sqlite3
 import os
 import uuid
 import qrcode
+import time   # <-- added for progress bar animation
 from db import get_connection, get_cursor, close_connection
 
 # 🔐 Access control
@@ -10,7 +11,45 @@ if "from_login" not in st.session_state or not st.session_state["from_login"]:
     st.warning("Access denied. Please use the login page to register.")
     st.stop()
 
-# 📝 Registration form
+# 📝 Registration form with animation
+st.markdown(
+    """
+    <style>
+    /* Fade-in animation for the form */
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+    .animated-form {
+        animation: fadeIn 1s ease-in-out;
+    }
+
+    /* Button hover effect */
+    div.stButton > button:first-child {
+        transition: all 0.3s ease;
+        background-color: #4CAF50;
+        color: white;
+        font-weight: bold;
+    }
+    div.stButton > button:first-child:hover {
+        transform: scale(1.05);
+        background-color: #45a049;
+    }
+
+    /* Success message pulse */
+    .success-anim {
+        animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+        0% {transform: scale(1);}
+        50% {transform: scale(1.02);}
+        100% {transform: scale(1);}
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 st.markdown("<h2 style='text-align:center;'>📝 User Registration</h2>", unsafe_allow_html=True)
 st.write("Please fill in your details to register for any ongoing events.")
 
@@ -28,6 +67,8 @@ except Exception as e:
 event_names = [ev[1] for ev in open_events] if open_events else []
 
 with st.form("user_registration_form"):
+    st.markdown('<div class="animated-form">', unsafe_allow_html=True)
+
     name = st.text_input("Full Name")
     age = st.number_input("Age", min_value=1, max_value=120)
     gender = st.selectbox("Gender", ["Male", "Female", "Other"])
@@ -47,7 +88,16 @@ with st.form("user_registration_form"):
 
     submitted = st.form_submit_button("Register")
 
+    st.markdown('</div>', unsafe_allow_html=True)
+
 if submitted:
+    # --- Animated progress bar ---
+    progress_text = "⏳ Processing your registration..."
+    my_bar = st.progress(0, text=progress_text)
+    for percent_complete in range(0, 101, 10):
+        time.sleep(0.1)  # smooth animation
+        my_bar.progress(percent_complete, text=progress_text)
+
     if not all([name, age, gender, address, phone, email, password, aadhar, event]):
         st.error("Please fill in all fields.")
     elif not payment_confirmed or not upi_id or not upi_pin:
@@ -118,7 +168,8 @@ if submitted:
                     close_connection(conn)
 
                     st.success(f"🎉 Payment Successful & Registration successful for {event}!")
-                    st.info("✅ Your digital pass has been generated automatically.You can View it in your my passes section.")
+                    st.markdown('<p class="success-anim">✅ Your digital pass has been generated automatically. You can view it in your My Passes section.</p>', unsafe_allow_html=True)
+                    st.balloons()
                     st.session_state["from_login"] = False
 
         except Exception as e:
